@@ -82,30 +82,3 @@ var swiper = new Swiper(".review-slider", {
       },
     },
 });
-document.getElementById('menu-btn').addEventListener('click', function() {
-  this.classList.toggle('open');
-  document.querySelector('.navbar').classList.toggle('open');
-});
-
-// Live Search Suggestions (Example Function)
-function showSuggestions(query) {
-  const suggestions = document.getElementById('suggestions');
-  if (query.length > 0) {
-      suggestions.style.display = 'block';
-      // Sample data for demo (replace with dynamic suggestions as needed)
-      const sampleSuggestions = [
-          'Apple', 'Banana', 'Orange', 'Broccoli', 'Carrots', 'Spinach'
-      ].filter(item => item.toLowerCase().includes(query.toLowerCase()));
-      
-      suggestions.innerHTML = sampleSuggestions.map(item => `<a href="/search?q=${item}">${item}</a>`).join('');
-  } else {
-      suggestions.style.display = 'none';
-  }
-}
-
-// Hide suggestions when clicking outside
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.search-form')) {
-      document.getElementById('suggestions').style.display = 'none';
-  }
-});
