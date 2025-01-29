@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="shopping-cart">
+        <div class="box" data-product="watermelon">
+            <i class="fas fa-trash"></i>
+            <img src="image/cart-img-1.png" alt="">
+            <div class="content">
+                <h3>watermelon</h3>
+                <span class="price">$4.99</span>
+                <div class="quantity-control">
+                    <button class="decrease">-</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="box" data-product="onion">
+            <i class="fas fa-trash"></i>
+            <img src="image/cart-img-2.png" alt="">
+            <div class="content">
+                <h3>onion</h3>
+                <span class="price">$4.99</span>
+                <div class="quantity-control">
+                    <button class="decrease">-</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="box" data-product="chicken">
+            <i class="fas fa-trash"></i>
+            <img src="image/cart-img-3.png" alt="">
+            <div class="content">
+                <h3>chicken</h3>
+                <span class="price">$4.99</span>
+                <div class="quantity-control">
+                    <button class="decrease">-</button>
+                    <span class="quantity">1</span>
+                    <button class="increase">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="total"> total : $19.69 </div>
+        <a href="/checkout1" class="btn" id="checkout-btn">checkout</a>
+    </div>
+    
+</body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cart = document.querySelector('.shopping-cart');
+        const totalElement = cart.querySelector('.total');
+        let total = 19.69;
+    
+        // Update total price
+        function updateTotal() {
+            totalElement.textContent = `total : $${total.toFixed(2)}`;
+        }
+    
+        // Increase quantity
+        cart.addEventListener('click', (event) => {
+            if (event.target.classList.contains('increase')) {
+                const box = event.target.closest('.box');
+                const quantityElement = box.querySelector('.quantity');
+                let quantity = parseInt(quantityElement.textContent, 10);
+                quantity++;
+                quantityElement.textContent = quantity;
+    
+                const price = parseFloat(box.querySelector('.price').textContent.slice(1));
+                total += price;
+                updateTotal();
+            }
+    
+            // Decrease quantity
+            if (event.target.classList.contains('decrease')) {
+                const box = event.target.closest('.box');
+                const quantityElement = box.querySelector('.quantity');
+                let quantity = parseInt(quantityElement.textContent, 10);
+                if (quantity > 1) {
+                    quantity--;
+                    quantityElement.textContent = quantity;
+    
+                    const price = parseFloat(box.querySelector('.price').textContent.slice(1));
+                    total -= price;
+                    updateTotal();
+                }
+            }
+    
+            // Remove item
+            if (event.target.classList.contains('fa-trash')) {
+                const box = event.target.closest('.box');
+                const quantity = parseInt(box.querySelector('.quantity').textContent, 10);
+                const price = parseFloat(box.querySelector('.price').textContent.slice(1));
+                total -= (price * quantity);
+                box.remove();
+                updateTotal();
+            }
+        });
+    
+        // Checkout button click
+        const checkoutBtn = cart.querySelector('#checkout-btn');
+        checkoutBtn.addEventListener('click', () => {
+            alert(`Total amount: $${total.toFixed(2)}. Proceeding to checkout...`);
+        });
+    });
+    
+</script>    
+</body>
+</html>

@@ -1,0 +1,84 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Language Dropdown */
+.language-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.lang-btn {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.lang-btn .flag-icon {
+    margin-right: 8px;
+}
+
+.lang-btn .dropdown-icon {
+    margin-left: 8px;
+    font-size: 12px;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    min-width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    padding: 10px;
+}
+
+.language-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content label {
+    display: block;
+    padding: 8px 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dropdown-content label input {
+    margin-right: 10px;
+}
+
+.footer-links {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links a {
+    font-size: 12px;
+    color: #0073e6;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}

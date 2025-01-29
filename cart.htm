@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Your Shopping Cart</h1>
+    </header>
+
+    <section id="cart-items">
+        <p>Your cart is currently empty.</p>
+    </section>
+
+    <section id="cart-total">
+        <h3>Total: $0.00</h3>
+    </section>
+
+    <button id="clear-cart">Clear Cart</button>
+
+    <button onclick="addItemToCart('Fresh Orange', 50)">Add Fresh Orange</button>
+    <button onclick="addItemToCart('Lemon', 80)">Add Lemon</button>
+    <button onclick="addItemToCart('Cabbage', 50)">Add Cabbage</button>
+    <button onclick="addItemToCart('Potato', 40)">Add Potato</button>
+    <button onclick="addItemToCart('Onion', 50)">Add Onion</button>
+    <button onclick="addItemToCart('Avocado', 100)">Add Avocado</button>
+    <button onclick="addItemToCart('Carrot', 50)">Add Carrot</button>
+    <button onclick="addItemToCart('Meat', 250)">Add Meat</button>
+
+    <footer>
+        <p>© 2024 Your Website Name. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Load cart items from localStorage
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartSection = document.getElementById('cart-items');
+        const cartTotalSection = document.getElementById('cart-total');
+        const clearCartButton = document.getElementById('clear-cart');
+
+        // Function to calculate total price
+        const calculateTotal = () => {
+            const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            return total.toFixed(2); // Format to 2 decimal places
+        };
+
+        // Function to display the cart
+        const displayCart = () => {
+            if (cartItems.length > 0) {
+                cartSection.innerHTML = '<ul>' + cartItems.map((item, index) =>
+                    `<li>${item.name} - ${item.price} x $${item.quantity}
+                        <button onclick="increaseQuantity(${index})">+</button>
+                        <button onclick="decreaseQuantity(${index})">-</button>
+                    </li>`
+                ).join('') + '</ul>';
+                cartTotalSection.innerHTML = `<h3>Total: ₹₹{calculateTotal()}</h3>`;
+            } else {
+                cartSection.innerHTML = '<p>Your cart is currently empty.</p>';
+                cartTotalSection.innerHTML = '<h3>Total: $0.00</h3>';
+            }
+        };
+
+        // Display cart on page load
+        displayCart();
+
+        // Function to add item to cart
+        const addItemToCart = (name, price) => {
+            const existingItemIndex = cartItems.findIndex(item => item.name === name);
+            if (existingItemIndex >= 0) {
+                cartItems[existingItemIndex].quantity += 1;
+            } else {
+                cartItems.push({ name, price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            displayCart(); // Refresh cart display
+        };
+
+        // Function to increase quantity
+        const increaseQuantity = (index) => {
+            cartItems[index].quantity += 1;
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            displayCart();
+        };
+
+        // Function to decrease quantity
+        const decreaseQuantity = (index) => {
+            if (cartItems[index].quantity > 1) {
+                cartItems[index].quantity -= 1;
+            } else {
+                cartItems.splice(index, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            displayCart();
+        };
+
+        // Clear cart functionality
+        clearCartButton.addEventListener('click', () => {
+            localStorage.removeItem('cart');
+            cartItems.length = 0; // Clear array in memory
+            displayCart(); // Refresh cart display
+        });
+    </script>
+
+</body>
+</html>

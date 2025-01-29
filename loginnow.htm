@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* CSS Code */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .box {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #message {
+            color: green;
+            font-weight: bold;
+        }
+
+        #error-message {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <form action="javascript:void(0);" class="login-form" onsubmit="validateLogin()">
+        <h3>login now</h3>
+        <input type="email" placeholder="your email" class="box" id="email">
+        <input type="password" placeholder="your password" class="box" id="password">
+        <p>forgot your password <a href="forgot.htm">click here</a></p>
+        <p>don't have an account <a href="createnow.htm">create now</a></p>
+        <input type="submit" value="login now" class="btn">
+        <p id="message"></p>
+        <p id="error-message"></p>
+    </form>
+
+    <script>
+        // JavaScript Code
+        const validEmail = "user@123.com"; // Replace with actual email
+        const validPassword = "psw23"; // Replace with actual password
+
+        function validateLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('message');
+            const errorMessage = document.getElementById('error-message');
+
+            if (email === validEmail && password === validPassword) {
+                message.textContent = 'Congratulations!';
+                errorMessage.textContent = '';
+                setTimeout(() => {
+                    alert('Congratulations!');
+                    window.location.href = "loginnow.htm"; // Redirect to another page after successful login
+                }, 1000); // Show message for 1 second before redirecting
+            } else {
+                errorMessage.textContent = 'Sorry, username and password do not match.';
+                message.textContent = '';
+            }
+        }
+    </script>
+</body>
+</html>

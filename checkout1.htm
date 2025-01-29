@@ -1,0 +1,82 @@
+<section class="payment-options">
+    <h1>Select Your Payment Method</h1>
+    <form action="/process-payment" method="POST" class="payment-form">
+        <div class="payment-method">
+            <label>
+                <input type="radio" name="payment_method" value="upi" required>
+                <img src="static/image/upi-logo.png" alt="UPI"> UPI
+            </label>
+        </div>
+        <div class="payment-method">
+            <label>
+                <input type="radio" name="payment_method" value="card" required>
+                <img src="static/image/card-logo.png" alt="Cards"> Debit/Credit Card
+            </label>
+        </div>
+        <div class="payment-method">
+            <label>
+                <input type="radio" name="payment_method" value="wallet" required>
+                <img src="static/image/wallet-logo.png" alt="Wallet"> Wallet
+            </label>
+        </div>
+        <div class="payment-method">
+            <label>
+                <input type="radio" name="payment_method" value="cod" required>
+                <img src="static/image/cod-logo.png" alt="Cash on Delivery"> Cash on Delivery (COD)
+            </label>
+        </div>
+        <a href="/process1" type="submit" class="btn">Pay Now</a>
+    </form>
+</section>
+<script>
+    document.querySelector('.payment-form').addEventListener('submit', function(event) {
+        const selectedMethod = document.querySelector('input[name="payment_method"]:checked');
+        if (!selectedMethod) {
+            event.preventDefault();
+            alert('Please select a payment method before proceeding.');
+        }
+    });    
+</script>
+<style>
+    .payment-options {
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-width: 600px;
+    background-color: #f9f9f9;
+}
+
+.payment-options h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.payment-method {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.payment-method img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.payment-form .btn {
+    display: block;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.payment-form .btn:hover {
+    background-color: #45a049;
+}
+
+</style>

@@ -1,0 +1,87 @@
+<section class="order-tracking" id="order-tracking">
+    <h1 class="heading">Track Your <span>Order</span></h1>
+    <form id="tracking-form" class="tracking-form">
+        <label for="order-id">Enter Your Order ID</label>
+        <input type="text" id="order-id" name="order-id" placeholder="Order ID" required>
+        <button type="submit" class="btn">Track Order</button>
+    </form>
+
+    <!-- Order Status Display -->
+    <div id="tracking-result" style="display: none; margin-top: 20px;">
+        <h2>Order Status</h2>
+        <p id="order-status">Loading...</p>
+        <p id="estimated-delivery"></p>
+    </div>
+</section>
+
+<script>
+    document.getElementById('tracking-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const orderId = document.getElementById('order-id').value;
+        const trackingResult = document.getElementById('tracking-result');
+        const orderStatus = document.getElementById('order-status');
+        const estimatedDelivery = document.getElementById('estimated-delivery');
+
+        // Show loading message
+        trackingResult.style.display = 'block';
+        orderStatus.textContent = 'Fetching order status...';
+
+        // Simulate a backend request
+        setTimeout(() => {
+            // Example response (replace with actual server response)
+            const mockResponse = {
+                success: true,
+                status: 'Out for Delivery',
+                deliveryTime: 'Today, 5:30 PM'
+            };
+
+            if (mockResponse.success) {
+                orderStatus.textContent = `Status: ${mockResponse.status}`;
+                estimatedDelivery.textContent = `Estimated Delivery: ${mockResponse.deliveryTime}`;
+            } else {
+                orderStatus.textContent = 'Invalid Order ID. Please try again.';
+                estimatedDelivery.textContent = '';
+            }
+        }, 2000); // Simulate 2 seconds delay
+    });
+</script>
+
+<style>
+    .order-tracking {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        margin: 20px auto;
+        max-width: 600px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .order-tracking h1 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    .tracking-form input {
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .tracking-form button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .tracking-form button:hover {
+        background-color: #45a049;
+    }
+    #tracking-result h2 {
+        margin: 10px 0;
+        color: #333;
+    }
+</style>

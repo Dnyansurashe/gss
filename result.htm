@@ -1,0 +1,37 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    {% if rows %}
+        <ul>
+            {% for row in rows %}
+                <li>{{ row['name'] }} - ${{ row['price'] }}: {{ row['description'] }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found for your search.</p>
+    {% endif %}
+    <a href="/">Back to Home</a>
+    <h1>Search Results</h1>
+{% if error %}
+    <p>{{ error }}</p>
+{% else %}
+    <ul>
+        {% for item in items %}
+            <li>{{ item.name }} - ${{ item.price }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+</body>
+</html>

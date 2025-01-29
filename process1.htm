@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Payment System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .payment-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .payment-methods {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .payment-method {
+            text-align: center;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+            margin: 0 5px;
+        }
+        .payment-method.selected {
+            border-color: #4CAF50;
+            background-color: #f0fff0;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Complete Your Payment</h1>
+        <form id="payment-form">
+            <!-- Personal Information -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            </div>
+
+            <!-- Payment Method -->
+            <div>
+                <h3>Select Payment Method</h3>
+                <div class="payment-methods">
+                    <div class="payment-method" data-method="upi">
+                        <i class="fas fa-mobile-alt"></i>
+                        <p>UPI</p>
+                    </div>
+                    <div class="payment-method" data-method="card">
+                        <i class="fas fa-credit-card"></i>
+                        <p>Credit/Debit Card</p>
+                    </div>
+                    <div class="payment-method" data-method="wallet">
+                        <i class="fas fa-wallet"></i>
+                        <p>Wallet</p>
+                    </div>
+                    <div class="payment-method" data-method="cod">
+                        <i class="fas fa-money-bill"></i>
+                        <p>Cash on Delivery</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Details -->
+            <div id="payment-details" style="display: none;">
+                <div class="form-group">
+                    <label for="details">Payment Details</label>
+                    <input type="text" id="details" name="details" placeholder="Enter payment details">
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Pay Now</button>
+        </form>
+    </div>
+    <a href="/ordertracking">Order Tracking</a>
+
+    <script>
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const paymentDetails = document.getElementById('payment-details');
+        let selectedMethod = null;
+
+        // Add click event to payment methods
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                // Deselect all methods
+                paymentMethods.forEach(m => m.classList.remove('selected'));
+                // Select the clicked method
+                method.classList.add('selected');
+                selectedMethod = method.getAttribute('data-method');
+
+                // Show or hide payment details based on method
+                if (selectedMethod === 'upi' || selectedMethod === 'card' || selectedMethod === 'wallet') {
+                    paymentDetails.style.display = 'block';
+                } else {
+                    paymentDetails.style.display = 'none';
+                }
+            });
+        });
+
+        // Handle form submission
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            if (!selectedMethod) {
+                alert('Please select a payment method.');
+                return;
+            }
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const details = document.getElementById('details').value;
+
+            alert(`Payment Details:\nName: ${name}\nEmail: ${email}\nMethod: ${selectedMethod}\nDetails: ${details || 'N/A'}`);
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                alert('Payment successful! Thank you for your purchase.');
+                window.location.href = '/success.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

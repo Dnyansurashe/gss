@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Grocery Store</title>
+    <style>
+        /* Basic Styles */
+        .box {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 16px;
+            text-align: center;
+        }
+
+        .btn {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn.order {
+            background-color: blue;
+        }
+
+        #shop-now-section, #cart-section, #order-summary-section {
+            margin: 20px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: left;
+        }
+
+        .close {
+            color: red;
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        #order-summary {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Product Section -->
+    <div class="box">
+        <img src="static/image/cat-1.png" alt="Vegetables">
+        <h3>Vegetables</h3>
+        <p>Upto 45% off</p>
+        <button class="btn" onclick="showShopNow()">Shop Now</button>
+    </div>
+
+    <!-- Shop Now Section -->
+    <section id="shop-now-section" style="display:none;">
+        <h2>Select Vegetables</h2>
+        <div>
+            <label>
+                <input type="checkbox" value="Tomato" onclick="addToCart('Tomato')"> Tomato
+            </label>
+            <label>
+                <input type="checkbox" value="Potato" onclick="addToCart('Potato')"> Potato
+            </label>
+            <label>
+                <input type="checkbox" value="Carrot" onclick="addToCart('Carrot')"> Carrot
+            </label>
+        </div>
+        <button class="btn order" onclick="openCustomerModal()">Place Order</button>
+    </section>
+
+    <!-- Customer Details Modal -->
+    <div id="customerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCustomerModal()">&times;</span>
+            <h3>Enter Customer Details</h3>
+            <form id="customerForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required><br><br>
+                
+                <label for="place">Place:</label>
+                <input type="text" id="place" required><br><br>
+                
+                <label for="address">Address:</label>
+                <textarea id="address" required></textarea><br><br>
+                
+                <button type="button" class="btn order" onclick="submitOrder()">Submit Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Summary Section -->
+    <section id="order-summary-section" style="display:none;">
+        <h2>Order Summary</h2>
+        <ul id="order-summary"></ul>
+        <p id="customer-details"></p>
+        <p id="confirmation-message" style="color: green; font-weight: bold;"></p>
+    </section>
+
+    <script>
+        let cart = [];
+
+        function showShopNow() {
+            document.getElementById('shop-now-section').style.display = 'block';
+        }
+
+        function addToCart(item) {
+            if (!cart.includes(item)) {
+                cart.push(item);
+            } else {
+                cart = cart.filter(cartItem => cartItem !== item);
+            }
+        }
+
+        // Function to open the customer details modal
+        function openCustomerModal() {
+            if (cart.length === 0) {
+                alert("Please select at least one item to place an order.");
+                return;
+            }
+            document.getElementById('customerModal').style.display = 'block';
+        }
+
+        // Function to close the customer details modal
+        function closeCustomerModal() {
+            document.getElementById('customerModal').style.display = 'none';
+        }
+
+        // Function to submit the order and display the summary
+        function submitOrder() {
+            const name = document.getElementById('name').value;
+            const place = document.getElementById('place').value;
+            const address = document.getElementById('address').value;
+
+            if (name && place && address) {
+                closeCustomerModal();
+                displayOrderSummary(name, place, address);
+            } else {
+                alert("Please fill in all customer details.");
+            }
+        }
+
+        // Display order summary with customer details
+        function displayOrderSummary(name, place, address) {
+            const orderSummarySection = document.getElementById('order-summary-section');
+            const orderSummary = document.getElementById('order-summary');
+            const confirmationMessage = document.getElementById('confirmation-message');
+            const customerDetails = document.getElementById('customer-details');
+
+            // Clear previous summary and message
+            orderSummary.innerHTML = '';
+            confirmationMessage.textContent = '';
+
+            // Display selected items in order summary
+            cart.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+                orderSummary.appendChild(listItem);
+            });
+
+            // Display customer details
+            customerDetails.innerHTML = `
+                <strong>Customer Name:</strong> ${name}<br>
+                <strong>Place:</strong> ${place}<br>
+                <strong>Address:</strong> ${address}
+            `;
+
+            // Show confirmation message
+            confirmationMessage.textContent = "Thank you! Your order has been placed successfully.";
+            orderSummarySection.style.display = 'block';
+
+            // Clear cart after placing the order
+            cart = [];
+        }
+    </script>
+
+</body>
+</html>

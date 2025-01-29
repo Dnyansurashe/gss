@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Fast Food Store</title>
+    <style>
+        .box {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 16px;
+            text-align: center;
+        }
+
+        .btn {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #shop-now-section, #cart-section {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="image/product-10.jpg" alt="Fast Food">
+        <h3>Fast Food</h3>
+        <p>Delicious and quick</p>
+        <a href="#" class="btn" onclick="showShopNow()">Shop Now</a>
+    </div>
+    
+    <div id="shop-now-section" style="display:none;">
+        <h2>Select Fast Food</h2>
+        <div>
+            <label>
+                <input type="checkbox" value="Burger" onclick="addToCart('Burger')"> Burger
+            </label>
+            <label>
+                <input type="checkbox" value="Pizza" onclick="addToCart('Pizza')"> Pizza
+            </label>
+            <label>
+                <input type="checkbox" value="Fries" onclick="addToCart('Fries')"> Fries
+            </label>
+            <label>
+                <input type="checkbox" value="Hot Dog" onclick="addToCart('Hot Dog')"> Hot Dog
+            </label>
+        </div>
+        <button onclick="viewCart()">View Cart</button>
+    </div>
+    
+    <div id="cart-section" style="display:none;">
+        <h2>Your Cart</h2>
+        <ul id="cart-items"></ul>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function showShopNow() {
+            document.getElementById('shop-now-section').style.display = 'block';
+        }
+
+        function addToCart(item) {
+            if (!cart.includes(item)) {
+                cart.push(item);
+            }
+        }
+
+        function viewCart() {
+            document.getElementById('cart-section').style.display = 'block';
+            let cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                let listItem = document.createElement('li');
+                listItem.textContent = item;
+                cartItems.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
+

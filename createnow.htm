@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration Page</title>
+    <style>
+        /* CSS Code */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-form, .register-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .box {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <form action="" class="login-form">
+        <h3>login now</h3>
+        <input type="email" placeholder="your email" class="box">
+        <input type="password" placeholder="your password" class="box">
+        <p>forgot your password? <a href="#" onclick="showForgotPassword()">click here</a></p>
+        <p>don't have an account? <a href="#" onclick="showRegisterForm()">create now</a></p>
+        <input type="submit" value="login now" class="btn">
+    </form>
+
+    <form action="" class="register-form" style="display:none;">
+        <h3>create account</h3>
+        <input type="text" placeholder="your name" class="box">
+        <input type="email" placeholder="your email" class="box">
+        <input type="password" placeholder="create password" class="box">
+        <p>already have an account? <a href="#" onclick="showLoginForm()">login now</a></p>
+        <input type="submit" value="create account" class="btn">
+    </form>
+
+    <form action="" class="forgot-password-form" style="display:none;">
+        <h3>reset password</h3>
+        <input type="email" placeholder="your email" class="box">
+        <p><a href="#" onclick="showLoginForm()">Back to login</a></p>
+        <input type="submit" value="reset password" class="btn">
+    </form>
+
+    <script>
+        // JavaScript Code
+        function showForgotPassword() {
+            document.querySelector('.login-form').style.display = 'none';
+            document.querySelector('.forgot-password-form').style.display = 'block';
+        }
+
+        function showRegisterForm() {
+            document.querySelector('.login-form').style.display = 'none';
+            document.querySelector('.register-form').style.display = 'block';
+        }
+
+        function showLoginForm() {
+            document.querySelector('.register-form').style.display = 'none';
+            document.querySelector('.forgot-password-form').style.display = 'none';
+            document.querySelector('.login-form').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
